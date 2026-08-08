@@ -41,6 +41,20 @@
 			<version>1.18.34</version>
 			<optional>true</optional>
 		</dependency>
+		<!-- 阿里云百练、灵积大模型服务 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dashscope-sdk-java</artifactId>
+			<version>2.19.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba.cloud.ai</groupId>
+			<artifactId>spring-ai-alibaba-starter</artifactId>
+			<version>1.0.0-M6.1</version>
+		</dependency>
+
+
 		<dependency>
 			<groupId>cn.hutool</groupId>
 			<artifactId>hutool-all</artifactId>
