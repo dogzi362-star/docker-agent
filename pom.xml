@@ -54,6 +54,52 @@
 			<version>1.0.0-M6.1</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.github.victools</groupId>
+			<artifactId>jsonschema-generator</artifactId>
+			<version>4.38.0</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.ai</groupId>
+			<artifactId>spring-ai-pgvector-store</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+
+		<!-- 自动整合 PGVector 向量存储 -->
+		<!--        <dependency>-->
+		<!--            <groupId>org.springframework.ai</groupId>-->
+		<!--            <artifactId>spring-ai-starter-vector-store-pgvector</artifactId>-->
+		<!--            <version>1.0.0-M7</version>-->
+		<!--        </dependency>-->
+		<!-- Spring AI MCP Client -->
+
+
+		<dependency>
+			<groupId>org.springframework.ai</groupId>
+			<artifactId>spring-ai-markdown-document-reader</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.esotericsoftware</groupId>
+			<artifactId>kryo</artifactId>
+			<version>5.6.2</version>
+		</dependency>
+
+
 
 		<dependency>
 			<groupId>cn.hutool</groupId>
@@ -117,5 +163,36 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<!-- 需要引入仓库配置，才能下载到最新的 Spring AI 相关的依赖 -->
+	<repositories>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/snapshot</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+		<repository>
+			<name>Central Portal Snapshots</name>
+			<id>central-portal-snapshots</id>
+			<url>https://central.sonatype.com/repository/maven-snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
 </project>

@@ -1,5 +1,6 @@
 ### CUSTOM ###
 application-local.yml
+document
 
 HELP.md
 target/
