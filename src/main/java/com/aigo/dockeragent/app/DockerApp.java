@@ -3,6 +3,7 @@ package com.aigo.dockeragent.app;
 import com.aigo.dockeragent.advisor.MyLoggerAdvisor;
 import com.aigo.dockeragent.advisor.ReReadingAdvisor;
 import com.aigo.dockeragent.chatmemory.FileBasedChatMemory;
+import com.aigo.dockeragent.rag.QueryRewriter;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
@@ -90,16 +91,31 @@ public class DockerApp {
 
     @Resource
     private VectorStore docAppVectorStore;
+    @Resource
+    private VectorStore pgVectorVectorStore;
+    @Resource
+    private QueryRewriter queryRewriter;
+
     public String doChatWithRag(String message, String chatId) {
+        // 查询重写
+        String rewrittenMessage = queryRewriter.doQueryRewrite(message);
         ChatResponse chatResponse = chatClient
                 .prompt()
-                .user(message)
+                .user(rewrittenMessage)
                 .advisors(spec -> spec.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId)
                         .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 10))
                 // 开启日志，便于观察效果
                 .advisors(new MyLoggerAdvisor())
-                // 应用知识库问答
+                // 应用RAG知识库问答
                 .advisors(new QuestionAnswerAdvisor(docAppVectorStore))
+                // 应用 RAG 检索增强服务（基于 PgVector 向量存储）
+                //.advisors(new QuestionAnswerAdvisor(pgVectorVectorStore))
+                // 应用自定义的 RAG 检索增强服务（文档查询器 + 上下文增强器）
+//                .advisors(
+//                        LoveAppRagCustomAdvisorFactory.createLoveAppRagCustomAdvisor(
+//                                loveAppVectorStore, "抑郁"
+//                        )
+//                )
                 .call()
                 .chatResponse();
         String content = chatResponse.getResult().getOutput().getText();
