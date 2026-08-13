@@ -11,6 +11,11 @@ spring:
         distance-type: COSINE_DISTANCE
         max-document-batch-size: 10000 # Optional: Maximum number of documents per batch
         initialize-schema: true
+# （启动 MCP 服务）
+    mcp:
+      client:
+        stdio:
+          servers-configuration: classpath:mcp-servers.json
 
 server:
   port: 8123
@@ -34,3 +39,6 @@ knife4j:
   enable: true
   setting:
     language: zh_cn
+
+
+
